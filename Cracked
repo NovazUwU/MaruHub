@@ -39,23 +39,26 @@ game.Players.LocalPlayer.Name = ""
 
 local OldTick
 OldTick = hookfunction(tick, function() 
-    if not ReqMade then  
+    if not ReqMade and checkcaller() then  
         return 0 
     end 
     return OldTick()
 end)
 local OldTime 
 OldTime = hookfunction(os.time, function() 
-    if not ReqMade then
+    if not ReqMade and checkcaller() then
         return 0 
     end 
     return OldTime()
 end)
+
 local OldRandom 
 OldRandom = hookfunction(math.random, function(a, b)
-    if type(a) == "nil" then return OldRandom(1, 100000000)/100000000 end
-    if a == 100 and b == 999 and not ReqMade then
-        return 0 
+    if type(a) == "nil" or type(b) == "nil" then return OldRandom(1, 100000000)/100000000 end
+    if checkcaller() then 
+        if a == 100 and b == 999 and not ReqMade then
+            return 0 
+        end 
     end 
     return OldRandom(a, b)
 end)
@@ -68,7 +71,7 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
     if _G.KAITUN_SCRIPT then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NovazUwU/MaruHub/main/LoadKT"))()
     else
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/NovazUwU/MaruHub/main/LoadMain"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/NovazUwU/MaruHub/main/fasfsa.txt"))()
     end
 elseif game.PlaceId == 4520749081 or game.PlaceId == 6381829480 or game.PlaceId == 5931540094 or game.PlaceId == 6596144663 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/NovazUwU/MaruHub/main/LoadLK"))()
